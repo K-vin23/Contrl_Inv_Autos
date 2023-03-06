@@ -60,7 +60,7 @@ public class Run {
 		
 		//Menu Principal
 		System.out.println("Bienvenido, ¿qué deseas hacer?");
-		System.out.println("1. Ver lista de autos" + "\n2. Registrar Venta" + "\n3. Salir");
+		System.out.println("1. Ver lista de autos" + "\n2. Ventas" + "\n3. Salir");
 		opcion = sc.nextInt();
 		
 		
@@ -118,6 +118,7 @@ public class Run {
 				 sc.nextLine();
 				 System.out.println("Buscar: ");
 				 busqueda = sc.next();
+				 sc.nextLine();
 				 
 				 for(Auto au : autos) {
 					 if(au.exhibicion().contains(busqueda)) {
@@ -136,21 +137,27 @@ public class Run {
 					 marca = sc.next();
 					 System.out.println("Modelo: ");
 					 modelo = sc.next();
+					 sc.nextLine();
 					 System.out.println("# puertas: ");
 					 num_puertas = sc.nextInt();
+					 sc.nextLine();
 					 System.out.println("Tipo de techo: ");
 					 techo = sc.next();
+					 sc.nextLine();
 					 System.out.println("Color: ");
 					 color = sc.next();
+					 sc.nextLine();
 					 System.out.println("Capacidad: ");
 					 capacidad = sc.nextInt();
 					 sc.nextLine();
 					 System.out.println("Motor: ");
 					 motor = sc.next();
+					 sc.nextLine();
 					 System.out.println("Tipo de combustible: ");
 					 tip_comb = sc.next();
 					 System.out.println("Tipo de Frenos: ");
 					 frenos = sc.next();
+					 sc.nextLine();
 					 System.out.println("Precio: ");
 					 costo = sc.nextDouble();
 					 sc.nextLine();
@@ -158,12 +165,15 @@ public class Run {
 					 
 					 System.out.println("Clase de auto: \n1. Urbano \n2. Deportivo \n3. Camioneta \n4. Comercial");
 					 opcion2 = sc.nextInt();
+					 sc.nextLine();
 					 
 					 if(opcion2 == 1) {
 						 System.out.println("Cilindraje: ");
 						 int cilindraje = sc.nextInt();
+						 sc.nextLine();
 						 System.out.println("Subtipo: ");
 						 String subtipo = sc.next();
+						 sc.nextLine();
 						 autom = new Urbano(num_puertas, techo, color, capacidad, motor, tip_comb, cilindraje,
 									frenos, costo, marca, modelo, subtipo);
 						 
@@ -178,20 +188,26 @@ public class Run {
 					 }else if(opcion2 == 3) {
 						 System.out.println("Peso: ");
 						 double peso = sc.nextDouble();
+						 sc.nextLine();
 						 System.out.println("Platon: ");
 						 String platon = sc.next();
+						 sc.nextLine();
 						 System.out.println("Transmision: ");
 						 String transmision = sc.next();
+						 sc.nextLine();
 						 System.out.println("Subtipo: ");
 						 String subtipo = sc.next();
+						 sc.nextLine();
 						 autom = new Camioneta(num_puertas, techo, color, capacidad, motor, tip_comb,
 									frenos, costo, marca, modelo, peso, platon, subtipo, transmision);
 						 
 					 }else if(opcion2 == 4) {
 						 System.out.println("Capacidad de carga: ");
 						 double carga = sc.nextDouble();
+						 sc.nextLine();
 						 System.out.println("Subtipo: ");
 						 String subtipo = sc.next();
+						 sc.nextLine();
 						 autom = new Comercial(num_puertas, techo, color, capacidad, motor, tip_comb,
 									frenos, costo, marca, modelo, carga, subtipo);
 						 
@@ -225,136 +241,163 @@ public class Run {
 		 case 2:	//Venta
 			 
 			 while(salir2 == false) {
-			 
-			 //variables
-			 opcion = 0;
-			 int seleccion;
-			 int cuotas;
-			 String fecha;
-			 boolean encontrado = false;
-			 
-			 //Auto
-			 System.out.println("1 - seleccionar el auto  \n1. Lista completa \n2.buscar \n3. salir");
+				//variables
+				 opcion = 0;
+				 int seleccion;
+				 int cuotas;
+				 String fecha;
+				 double interes;
+				 boolean encontrado = false;
+				 resultado = "";
+				 
+			 System.out.println("1. Ventas registradas \n2. Registrar Venta \n3. salir");
 			 opcion = sc.nextInt();
 			 sc.nextLine();
 			 
-			 if(opcion == 1) {	//Lista Completa
-				 if(autos.isEmpty()) {
-					 System.out.println("No hay autos registrados.");
-				 }
-				 for(int i=0; i<autos.size(); i++) {
-					 resultado += i + ". " + autos.get(i).exhibicion();
-				 }
-					 System.out.println(resultado);
-					 System.out.println("Numero de seleccion: ");	
-			 seleccion = sc.nextInt();
-			 sc.nextLine();
-			 
-			 autom = autos.get(seleccion); 	//Auto seleccionado
+			 switch(opcion) {
+			    case 1:
+			    	for(Venta v: ventas) {
+			    		resultado += v.toString();
+			    	}
+			    	System.out.println(resultado);
+			    	if(ventas.isEmpty()) {
+			    		 System.out.println("No hay ventas registradas");
+			    	}
+			    	
+			    break;
+			    case 2:
+			    	opcion = 0;
+					 System.out.println("1 - seleccionar el auto  \n1. Lista completa \n2.buscar \n3. salir");
+					 opcion = sc.nextInt();
+					 sc.nextLine();
 					 
-			 }else if(opcion == 2) {	//Busqueda
-				 busqueda = sc.next();
-				 for(Auto au : autos) {
-					 if(au.exhibicion().contains(busqueda)) {
-						 autom = au;
-						 encontrado = true;
+					 if(opcion == 1) {	//Lista Completa
+						 if(autos.isEmpty()) {
+							 System.out.println("No hay autos registrados.");
+						 }
+						 for(int i=0; i<autos.size(); i++) {
+							 resultado += i + ". " + autos.get(i).exhibicion();
+						 }
+							 System.out.println(resultado);
+							 System.out.println("Numero de seleccion: ");	
+					 seleccion = sc.nextInt();
+					 sc.nextLine();
+					 
+					 autom = autos.get(seleccion); 	//Auto seleccionado
+							 
+					 }else if(opcion == 2) {	//Busqueda
+						 busqueda = sc.next();
+						 for(Auto au : autos) {
+							 if(au.exhibicion().contains(busqueda)) {
+								 autom = au;
+								 encontrado = true;
+							 }
+						 }
+						 if(autos.isEmpty()) {
+							 System.out.println("No hay autos registrados.");
+						 }
+						 
+						 if(encontrado == true) {
+							 System.out.println(resultado);
+						 }else {
+							 System.out.println("No encontrado");
+						 }
+							 
+					 }else if(opcion == 3){
+						 salir2 = true;
+						 
+					 }else {
+						 System.out.println("opcion no valida");
+						 
 					 }
-				 }
-				 if(autos.isEmpty()) {
-					 System.out.println("No hay autos registrados.");
-				 }
-				 
-				 if(encontrado == true) {
-					 System.out.println(resultado);
-				 }else {
-					 System.out.println("No encontrado");
-				 }
 					 
-			 }else if(opcion == 3){
-				 salir2 = true;
-				 
-			 }else {
-				 System.out.println("opcion no valida");
-				 
+					 //Vendedor
+					 System.out.println("2 - Vendedor quien la realiza \n identificacion:");
+					 identificacion = sc.nextInt();
+					 sc.nextLine();
+					 for(int i=0; i<vendedores.size(); i++) {
+						 if(vendedores.get(i).getIdentificacion() == identificacion) {
+							 vend = vendedores.get(i);
+							 vendedores.get(i).addVenta();
+							 resultado = vend.getNombres() + " " + vend.getApellidos();
+							 encontrado = true;
+						 }
+					 }
+					 
+					 if(encontrado == true) {
+						 System.out.println(resultado);
+					 }else {
+						 System.out.println("No encontrado");
+						 System.out.println("¿Desea registrar el vendedor? \n1.Registrar \n2.Volver");
+						 int opcion1 = sc.nextInt();
+						 if(opcion1 == 1) {
+							 System.out.println("Nombres:");
+							 nombre = sc.next();
+							 System.out.println("Apellidos:");
+							 apellido = sc.next();
+							 System.out.println("Sucursal:");
+							 String sucursal = sc.next();
+							 vend = new Vendedor(nombre, apellido, identificacion, sucursal);
+							 vend.addVenta();
+							 vendedores.add(vend);
+						 }
+					 }
+					 
+					 //Cliente
+					 cl = null;
+					 encontrado = false;
+					 System.out.println("3 - Cliente \n Identificacion:");
+					 identificacion = sc.nextInt();
+					 sc.nextLine();
+					 for(Cliente c : clientes) {
+						 if(c.getIdentificacion() == identificacion) {
+							 cl = c;
+							 encontrado = true;
+						 }
+					 }
+					 if(encontrado == true) {
+						 System.out.println("El cliente ya se encuentra registrado");
+						 System.out.println("agregando datos .");
+						 System.out.println(". . . .");
+					 }else {
+						 System.out.println("Nombres:");
+						 nombre = sc.next();
+						 System.out.println("Apellidos:");
+						 apellido = sc.next();
+						 System.out.println("Telefono:");
+						 telefono = sc.next();
+						 System.out.println("Correo:");
+						 correo = sc.next();
+						 cl = new Cliente(nombre, apellido, identificacion, telefono, correo);
+						 clientes.add(cl);
+					 }
+					 
+					 //Cuotas
+					 System.out.println("4 - Cuotas \n#Cuotas Pago:");
+					 cuotas = sc.nextInt();
+					 sc.nextLine();
+					 
+					 System.out.println("4 - Cuotas \nIntereses (%):");
+					 interes = sc.nextDouble();
+					 sc.nextLine();
+					 
+					 //Fecha
+					 System.out.println("5 - Fecha venta \nFecha:");
+					 fecha = sc.next();
+					 
+					 vent = new Venta(autom, vend, cl, cuotas, fecha);
+					 vent.calcularCuotas(interes);
+					 ventas.add(vent);
+					 
+			    	
+			    break;
+			    case 3:
+			    	salir2 = true;
+			    break;	
+			    default:
+			    	System.out.println("Opcion no valida");
 			 }
-			 
-			 //Vendedor
-			 System.out.println("2 - Vendedor quien la realiza \n identificacion:");
-			 identificacion = sc.nextInt();
-			 sc.nextLine();
-			 for(Vendedor v : vendedores) {
-				 if(v.getIdentificacion() == identificacion) {
-					 vend = v;
-					 resultado = v.getNombres() + " " + v.getApellidos();
-					 encontrado = true;
-				 }
-			 }
-			 
-			 if(encontrado == true) {
-				 System.out.println(resultado);
-			 }else {
-				 System.out.println("No encontrado");
-				 System.out.println("¿Desea registrar el vendedor? \n1.Registrar \n2.Volver");
-				 int opcion1 = sc.nextInt();
-				 if(opcion1 == 1) {
-					 System.out.println("Nombres:");
-					 nombre = sc.next();
-					 System.out.println("Apellidos:");
-					 apellido = sc.next();
-					 System.out.println("Sucursal:");
-					 String sucursal = sc.next();
-					 vend = new Vendedor(nombre, apellido, identificacion, sucursal);
-					 vendedores.add(vend);
-				 }
-			 }
-			 
-			 //Cliente
-			 cl = null;
-			 System.out.println("3 - Cliente \n Identificacion:");
-			 identificacion = sc.nextInt();
-			 sc.nextLine();
-			 for(Cliente c : clientes) {
-				 if(c.getIdentificacion() == identificacion) {
-					 cl = c;
-					 encontrado = true;
-				 }
-			 }
-			 if(encontrado == true) {
-				 System.out.println("El cliente ya se encuentra registrado");
-				 System.out.println("agregando datos .");
-				 System.out.println(". . . .");
-			 }else {
-				 System.out.println("Nombres:");
-				 nombre = sc.next();
-				 System.out.println("Apellidos:");
-				 apellido = sc.next();
-				 System.out.println("Telefono:");
-				 telefono = sc.next();
-				 System.out.println("Correo:");
-				 correo = sc.next();
-				 cl = new Cliente(nombre, apellido, identificacion, telefono, correo);
-				 clientes.add(cl);
-			 }
-			 
-			 //Cuotas
-			 System.out.println("4 - Cuotas \n#Cuotas Pago:");
-			 cuotas = sc.nextInt();
-			 sc.nextLine();
-			 
-			 //Fecha
-			 System.out.println("5 - Fecha venta \nFecha:");
-			 fecha = sc.next();
-			 
-			 vent = new Venta(autom, vend, cl, cuotas, fecha);
-			 ventas.add(vent);
-			 
-			 System.out.println("¿Desea registrar otra venta? \n1. Continuar \n2. Salir");
-			 opcion = sc.nextInt();
-			 
-			 if(opcion == 2) {
-				 salir2 = true;
-			 }
-			 
+			  
 		   } 
 		 break;
 		 case 3:

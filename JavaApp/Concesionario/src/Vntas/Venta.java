@@ -5,6 +5,7 @@ public class Venta {
  private Vendedor vendedor;
  private Cliente cliente;
  private int cuotas;
+ private double valorcuota;
  private String fecha;
  
  public Venta(Auto auto, Vendedor vendedor, Cliente cliente, int cuotas, String fecha) {
@@ -16,7 +17,7 @@ public class Venta {
 	}
  
 public String toString() {
-	return "Auto: " + auto.infoGeneral() + "\nVendedor: " + vendedor.toString() + "\nCliente: " + cliente.toString() + "\n# Cuotas: " + cuotas + "\nFecha: "
+	return "Auto: " + auto.infoGeneral() + "\nVendedor: " + vendedor.toString() + "\nCliente: " + cliente.toString() + "\n# Cuotas: " + cuotas + "\nValor cuota: " + valorcuota + "\nFecha: "
 			+ fecha;
 }
 
@@ -36,6 +37,13 @@ public Cliente getCliente() {
 
 public int getCuotas() {
 	return cuotas;
+}
+
+public void calcularCuotas(double intereses) {
+	double porcentaje = intereses/100;
+	double valorinteres = (porcentaje * auto.getCosto()) + auto.getCosto();
+	double valorCuota =  valorinteres/cuotas;
+	this.valorcuota = valorCuota;
 }
 
 public String getFecha() {
